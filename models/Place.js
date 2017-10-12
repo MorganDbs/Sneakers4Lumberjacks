@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PlaceSchema = new mongoose.Schema({
+const placeSchema = new mongoose.Schema({
   placeName: String,
   coordX: Number,
   coordY: Number
