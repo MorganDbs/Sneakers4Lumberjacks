@@ -143,7 +143,7 @@ describe('User model',function(){
       email: 'test@gmail.com'
     };
 
-    userMock
+    UserMock
       .expects('findOne')
       .withArgs({username: 'root'})
       .yields(null,expectedUser);
@@ -181,7 +181,7 @@ describe('User model',function(){
       nRemoved: 1
     };
 
-    userMock
+    UserMock
       .expects('remove')
       .withArgs({ username: 'root' })
       .yields(null, expectedResult);
@@ -214,23 +214,97 @@ describe('Brand model',function(){
    it('should not create a new brand',(done) =>{
      const brandMock=sinon.mock(new Brand({brand: 'nike'}));
      const brand=BrandMock.object;
+     const expectedError{
+      name: 'ValidationError'
+    };
 
      BrandMock
       .expect('save')
-      .yields(null);
+      .yields(expectedError);
 
       brand.save((err) =>{
         BrandMock.verify();
         BrandMock.restore();
-        expects(err).to.be.null;
+         expect(err.name).to.equal('ValidationError');
+        expect(result).to.be.undefined;
         done();
     });
   });
 });
-describe('Command model',function(){
+describe('Place model',function(){
+  it('should create a Place',(done) =>{
+      const placeMock=sinon.mock(new Place({placeName: 'Himalaya', coordX: 83.93106230000001, coordY: 28.5983159}));
+      const  place= PlaceMock.object;
 
+      PlaceMock
+       .expects('save')
+       .yields(null);
+
+      place.save((err) => {
+        PlaceMock.verify();
+        PlaceMock.restore();
+        expects(err).to.be.null;
+        done();
+      });
+  });
+   it('should not create a Place with same name',(done) =>{
+      const placeMock=sinon.mock(new Place({placeName: 'Himalaya', coordX: 83.91, coordY: 28.59859}));
+      const  place= PlaceMock.object;
+      const expectedError{
+        name: 'ValidationError'
+      };
+
+      PlaceMock
+       .expects('save')
+       .yields(expectedError);
+
+      place.save((err) => {
+        PlaceMock.verify();
+        PlaceMock.restore();
+         expect(err.name).to.equal('ValidationError');
+        expect(result).to.be.undefined;
+        done();
+      });
+  });
+    it('should find Place by name', (done) => {
+      const placerMock = sinon.mock(Place);
+      const expectedPlace = {
+        _id: 'a remplir',
+        Placename:'Himalaya',
+        coordX: 83.93106230000001,
+        coordY: 28.5983159
+      };
+
+       PlaceMock
+        .expects('findOne')
+        .withArgs({ placeName: 'Himalaya' })
+        .yields(null, expectedUser);
+
+      Place.findOne({ placeName: 'Himalaya' }, (err, result) => {
+        PlaceMock.verify();
+        PlaceMock.restore();
+        expect(result.placeName).to.equal('Himalaya');
+        done();
+      });
+    });
 });
-    
+describe('Sneakers model',function(){
+  it('should create a Sneakers',(done) =>{
+      const sneakersMock=sinon.mock(new Sneakers({}));
+      const sneakers= SneakersMock.object;
+
+      SneakersMock
+       .expects('save')
+       .yields(null);
+
+      sneakers.save((err) => {
+        SneakersMock.verify();
+        SneakersMock.restore();
+        expects(err).to.be.null;
+        done();
+      });
+  });
+});
 
   
 
