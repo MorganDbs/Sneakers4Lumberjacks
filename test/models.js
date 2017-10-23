@@ -1,79 +1,96 @@
-const { expect } = require('chai');
+const {
+    expect
+} = require('chai');
 const sinon = require('sinon');
 require('sinon-mongoose');
 
 const Brand = require('../models/Brand');
 const Command = require('../models/Command');
-const Model=require('../models/Model');
+const Model = require('../models/Model');
 const Place = require('../models/Place');
 const Reservation = require('../models/Reservation');
 const Sneakers = require('../models/Sneakers');
 const User = require('../models/User');
 
-describe('User model',function(){
-  it('should create a new user',(done) =>{
-     const userMock=sinon.mock(new User({username: 'root',email:'test@gmail.com',password:'root'}));
-     const user=UserMock.object;
+describe('User model', function() {
+    it('should create a new user', (done) => {
+        const userMock = sinon.mock(new User({
+            username: 'root',
+            email: 'test@gmail.com',
+            password: 'root'
+        }));
+        const user = UserMock.object;
 
-     UserMock
-      .expect('save')
-      .yields(null);
+        UserMock
+            .expect('save')
+            .yields(null);
 
-      user.save((err) =>{
-        UserMock.verify();
-        UserMock.restore();
-        expects(err).to.be.null;
-        done();
+        user.save((err) => {
+            UserMock.verify();
+            UserMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
     });
-  });
-  it('should return error if user is not created',(done) =>{
-    const UserMock=sinon.mock(new User({username:'root', email:'test@gmail.com',password:'root'}));
-    const user=UserMock.object;
-    const expectedError{
-      name: 'ValidationError'
-    };
-
-    UserMock
-      .expects('save')
-      .yields(expectedError);
-
-    user.save((err,result) => {
-        userMock.verify();
-        userMock.restore();
-        expect(err.name).to.equal('ValidationError');
-        expect(result).to.be.undefined;
-        done();
-    });
-  });
-  it('should not create a user with the unique email', (done) => {
-    const UserMock = sinon.mock(User({ username:'root' email: 'test@gmail.com', password: 'root' }));
-    const user = UserMock.object;
-    const expectedError = {
-      name: 'MongoError',
-      code: 11000
-    };
-
-    UserMock
-      .expects('save')
-      .yields(expectedError);
-
-    user.save((err, result) => {
-      UserMock.verify();
-      UserMock.restore();
-      expect(err.name).to.equal('MongoError');
-      expect(err.code).to.equal(11000);
-      expect(result).to.be.undefined;
-      done();
-    });
-  });
-  it('should be invalid if name is empty', (done) => {
-        var UserMock=sinon.mock(User{email:'test@gmail.com',password:'root'});
-        const user=userMock.object;
-        const expectedError={
-          name:'MongoError',
-          code:11000
+    it('should return error if user is not created', (done) => {
+        const UserMock = sinon.mock(new User({
+            username: 'root',
+            email: 'test@gmail.com',
+            password: 'root'
+        }));
+        const user = UserMock.object;
+        const expectedError {
+            name: 'ValidationError'
         };
-        user.save((err,result) => {
+
+        UserMock
+            .expects('save')
+            .yields(expectedError);
+
+        user.save((err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(err.name).to.equal('ValidationError');
+            expect(result).to.be.undefined;
+            done();
+        });
+    });
+    it('should not create a user with the unique email', (done) => {
+        const UserMock = sinon.mock(User({
+            username: 'root'
+            email: 'test@gmail.com',
+            password: 'root'
+        }));
+        const user = UserMock.object;
+        const expectedError = {
+            name: 'MongoError',
+            code: 11000
+        };
+
+        UserMock
+            .expects('save')
+            .yields(expectedError);
+
+        user.save((err, result) => {
+            UserMock.verify();
+            UserMock.restore();
+            expect(err.name).to.equal('MongoError');
+            expect(err.code).to.equal(11000);
+            expect(result).to.be.undefined;
+            done();
+        });
+    });
+    it('should be invalid if name is empty', (done) => {
+        var UserMock = sinon.mock(User {
+            email: 'test@gmail.com',
+            password: 'root'
+        });
+        const user = userMock.object;
+        const expectedError = {
+            name: 'MongoError',
+            code: 11000
+        };
+        user.save((err, result) => {
             UserMock.verify();
             userMock.restore();
             expect(err.name).to.equal('MongoError');
@@ -82,14 +99,17 @@ describe('User model',function(){
             done();
         });
     });
-  it('should be invalid if mail is empty',(done) => {
-        var UserMock=sinon.mock(User{username:'root',password:'root'});
-        const user=userMock.object;
-        const expectedError={
-          name:'MongoError',
-          code:11000
+    it('should be invalid if mail is empty', (done) => {
+        var UserMock = sinon.mock(User {
+            username: 'root',
+            password: 'root'
+        });
+        const user = userMock.object;
+        const expectedError = {
+            name: 'MongoError',
+            code: 11000
         };
-        user.save((err,result) => {
+        user.save((err, result) => {
             UserMock.verify();
             userMock.restore();
             expect(err.name).to.equal('MongoError');
@@ -98,14 +118,17 @@ describe('User model',function(){
             done();
         });
     });
-  it('should be invalid if password is empty',(done) => {
-        var UserMock=sinon.mock(User{username: 'root',email:'test@gmail.com'});
-        const user=userMock.object;
-        const expectedError={
-          name:'MongoError',
-          code:11000
+    it('should be invalid if password is empty', (done) => {
+        var UserMock = sinon.mock(User {
+            username: 'root',
+            email: 'test@gmail.com'
+        });
+        const user = userMock.object;
+        const expectedError = {
+            name: 'MongoError',
+            code: 11000
         };
-        user.save((err,result) => {
+        user.save((err, result) => {
             UserMock.verify();
             userMock.restore();
             expect(err.name).to.equal('MongoError');
@@ -114,207 +137,304 @@ describe('User model',function(){
             done();
         });
     });
- it('should find user by email', (done) => {
-    const userMock = sinon.mock(User);
-    const expectedUser = {
-      _id: '5700a128bd97c1341d8fb365',
-      username:'root',
-      email: 'test@gmail.com'
-    };
+    it('should find user by email', (done) => {
+        const userMock = sinon.mock(User);
+        const expectedUser = {
+            _id: '5700a128bd97c1341d8fb365',
+            username: 'root',
+            email: 'test@gmail.com'
+        };
 
-    userMock
-      .expects('findOne')
-      .withArgs({ email: 'test@gmail.com' })
-      .yields(null, expectedUser);
+        userMock
+            .expects('findOne')
+            .withArgs({
+                email: 'test@gmail.com'
+            })
+            .yields(null, expectedUser);
 
-    User.findOne({ email: 'test@gmail.com' }, (err, result) => {
-      userMock.verify();
-      userMock.restore();
-      expect(result.email).to.equal('test@gmail.com');
-      expect(result.username).to.equal('root');
-      done();
+        User.findOne({
+            email: 'test@gmail.com'
+        }, (err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(result.email).to.equal('test@gmail.com');
+            expect(result.username).to.equal('root');
+            done();
+        });
     });
-  });
-  it('should find user by username', function(done){
-    const userMock=sinon.mock(User);
-    const expectedUser = {
-      _id: '5700a128bd97c1341d8fb365',
-      username: 'root',
-      email: 'test@gmail.com'
-    };
+    it('should find user by username', function(done) {
+        const userMock = sinon.mock(User);
+        const expectedUser = {
+            _id: '5700a128bd97c1341d8fb365',
+            username: 'root',
+            email: 'test@gmail.com'
+        };
 
-    UserMock
-      .expects('findOne')
-      .withArgs({username: 'root'})
-      .yields(null,expectedUser);
+        UserMock
+            .expects('findOne')
+            .withArgs({
+                username: 'root'
+            })
+            .yields(null, expectedUser);
 
-    user.findOne({username: 'root'}, (err,result) => {
-        userMock.verify();
-        userMock.restore();
-        expect(result.username).to.equal('root');
-        expect(result.email).to.equal('test@gmail.com');
-        done();
+        user.findOne({
+            username: 'root'
+        }, (err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(result.username).to.equal('root');
+            expect(result.email).to.equal('test@gmail.com');
+            done();
+        });
     });
-  });
-  it('should remove user by email', (done) => {
-    const userMock = sinon.mock(User);
-    const expectedResult = {
-      nRemoved: 1
-    };
+    it('should remove user by email', (done) => {
+        const userMock = sinon.mock(User);
+        const expectedResult = {
+            nRemoved: 1
+        };
 
-    userMock
-      .expects('remove')
-      .withArgs({ email: 'test@gmail.com' })
-      .yields(null, expectedResult);
+        userMock
+            .expects('remove')
+            .withArgs({
+                email: 'test@gmail.com'
+            })
+            .yields(null, expectedResult);
 
-    User.remove({ email: 'test@gmail.com' }, (err, result) => {
-      userMock.verify();
-      userMock.restore();
-      expect(err).to.be.null;
-      expect(result.nRemoved).to.equal(1);
-      done();
+        User.remove({
+            email: 'test@gmail.com'
+        }, (err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(err).to.be.null;
+            expect(result.nRemoved).to.equal(1);
+            done();
+        });
     });
-  });
-  it('should remove user by usermail', (done) => {
-    const userMock = sinon.mock(User);
-    const expectedResult = {
-      nRemoved: 1
-    };
+    it('should remove user by usermail', (done) => {
+        const userMock = sinon.mock(User);
+        const expectedResult = {
+            nRemoved: 1
+        };
 
-    UserMock
-      .expects('remove')
-      .withArgs({ username: 'root' })
-      .yields(null, expectedResult);
+        UserMock
+            .expects('remove')
+            .withArgs({
+                username: 'root'
+            })
+            .yields(null, expectedResult);
 
-    User.remove({ username: 'root' }, (err, result) => {
-      userMock.verify();
-      userMock.restore();
-      expect(err).to.be.null;
-      expect(result.nRemoved).to.equal(1);
-      done();
+        User.remove({
+            username: 'root'
+        }, (err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(err).to.be.null;
+            expect(result.nRemoved).to.equal(1);
+            done();
+        });
     });
-  });
 });
-describe('Brand model',function(){
-  it('should create a new brand',(done) =>{
-     const brandMock=sinon.mock(new Brand({brand: 'nike'}));
-     const brand=BrandMock.object;
+describe('Brand model', function() {
+    it('should create a new brand', (done) => {
+        const brandMock = sinon.mock(new Brand({
+            brand: 'nike'
+        }));
+        const brand = BrandMock.object;
 
-     BrandMock
-      .expect('save')
-      .yields(null);
+        BrandMock
+            .expect('save')
+            .yields(null);
 
-      brand.save((err) =>{
-        BrandMock.verify();
-        BrandMock.restore();
-        expects(err).to.be.null;
-        done();
+        brand.save((err) => {
+            BrandMock.verify();
+            BrandMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
     });
-  });
-   it('should not create a new brand',(done) =>{
-     const brandMock=sinon.mock(new Brand({brand: 'nike'}));
-     const brand=BrandMock.object;
-     const expectedError{
-      name: 'ValidationError'
-    };
+    it('should not create a new brand', (done) => {
+        const brandMock = sinon.mock(new Brand({
+            brand: 'nike'
+        }));
+        const brand = BrandMock.object;
+        const expectedError {
+            name: 'ValidationError'
+        };
 
-     BrandMock
-      .expect('save')
-      .yields(expectedError);
+        BrandMock
+            .expect('save')
+            .yields(expectedError);
 
-      brand.save((err) =>{
-        BrandMock.verify();
-        BrandMock.restore();
-         expect(err.name).to.equal('ValidationError');
-        expect(result).to.be.undefined;
-        done();
+        brand.save((err) => {
+            BrandMock.verify();
+            BrandMock.restore();
+            expect(err.name).to.equal('ValidationError');
+            expect(result).to.be.undefined;
+            done();
+        });
     });
-  });
 });
-describe('Place model',function(){
-  it('should create a Place',(done) =>{
-      const placeMock=sinon.mock(new Place({placeName: 'Himalaya', coordX: 83.93106230000001, coordY: 28.5983159}));
-      const  place= PlaceMock.object;
+describe('Place model', function() {
+    it('should create a Place', (done) => {
+        const placeMock = sinon.mock(new Place({
+            placeName: 'Himalaya',
+            coordX: 83.93106230000001,
+            coordY: 28.5983159
+        }));
+        const place = PlaceMock.object;
 
-      PlaceMock
-       .expects('save')
-       .yields(null);
+        PlaceMock
+            .expects('save')
+            .yields(null);
 
-      place.save((err) => {
-        PlaceMock.verify();
-        PlaceMock.restore();
-        expects(err).to.be.null;
-        done();
-      });
-  });
-   it('should not create a Place with same name',(done) =>{
-      const placeMock=sinon.mock(new Place({placeName: 'Himalaya', coordX: 83.91, coordY: 28.59859}));
-      const  place= PlaceMock.object;
-      const expectedError{
-        name: 'ValidationError'
-      };
+        place.save((err) => {
+            PlaceMock.verify();
+            PlaceMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+    });
+    it('should not create a Place with same name', (done) => {
+        const placeMock = sinon.mock(new Place({
+            placeName: 'Himalaya',
+            coordX: 83.91,
+            coordY: 28.59859
+        }));
+        const place = PlaceMock.object;
+        const expectedError {
+            name: 'ValidationError'
+        };
 
-      PlaceMock
-       .expects('save')
-       .yields(expectedError);
+        PlaceMock
+            .expects('save')
+            .yields(expectedError);
 
-      place.save((err) => {
-        PlaceMock.verify();
-        PlaceMock.restore();
-         expect(err.name).to.equal('ValidationError');
-        expect(result).to.be.undefined;
-        done();
-      });
-  });
+        place.save((err) => {
+            PlaceMock.verify();
+            PlaceMock.restore();
+            expect(err.name).to.equal('ValidationError');
+            expect(result).to.be.undefined;
+            done();
+        });
+    });
     it('should find Place by name', (done) => {
-      const placerMock = sinon.mock(Place);
-      const expectedPlace = {
-        _id: 'a remplir',
-        Placename:'Himalaya',
-        coordX: 83.93106230000001,
-        coordY: 28.5983159
-      };
+        const placerMock = sinon.mock(Place);
+        const expectedPlace = {
+            _id: 'a remplir',
+            Placename: 'Himalaya',
+            coordX: 83.93106230000001,
+            coordY: 28.5983159
+        };
 
-       PlaceMock
-        .expects('findOne')
-        .withArgs({ placeName: 'Himalaya' })
-        .yields(null, expectedUser);
+        PlaceMock
+            .expects('findOne')
+            .withArgs({
+                placeName: 'Himalaya'
+            })
+            .yields(null, expectedUser);
 
-      Place.findOne({ placeName: 'Himalaya' }, (err, result) => {
-        PlaceMock.verify();
-        PlaceMock.restore();
-        expect(result.placeName).to.equal('Himalaya');
-        done();
-      });
+        Place.findOne({
+            placeName: 'Himalaya'
+        }, (err, result) => {
+            PlaceMock.verify();
+            PlaceMock.restore();
+            expect(result.placeName).to.equal('Himalaya');
+            done();
+        });
     });
 });
-describe('Sneakers model',function(){
-  it('should create a Sneakers',(done) =>{
-      const sneakersMock=sinon.mock(new Sneakers({}));
-      const sneakers= SneakersMock.object;
-
-      SneakersMock
-       .expects('save')
-       .yields(null);
-
-      sneakers.save((err) => {
-        SneakersMock.verify();
-        SneakersMock.restore();
-        expects(err).to.be.null;
+describe('Shoes Model model', function() {
+    var place = Place.findOne({
+        placeName: 'Himalaya'
+    }, (err, result) => {
+        userMock.verify();
+        userMock.restore();
+        expect(result.placeName).to.equal('himalaya');
         done();
-      });
-  });
+    });
+
+    it('should create a new model', (done) => {
+        const brandMock = sinon.mock(new Model({
+            placeId: place._id,
+            modelName: 'Spiridon',
+            price: 50,
+            sex: "Unisex"
+        }));
+        const brand = BrandMock.object;
+
+        BrandMock
+            .expect('save')
+            .yields(null);
+
+        brand.save((err) => {
+            BrandMock.verify();
+            BrandMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+    });
+    it('should not create a new model', (done) => {
+        const brandMock = sinon.mock(new Model({
+            placeId: place._id,
+            modelName: 'Spiridon',
+            price: 50,
+            sex: "Unisex"
+        }));
+        const brand = BrandMock.object;
+
+        BrandMock
+            .expect('save')
+            .yields(null);
+
+        brand.save((err) => {
+            BrandMock.verify();
+            BrandMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+    });
+
+    it('should find model by modelname', function(done) {
+        const userMock = sinon.mock(Model);
+        const expectedModel = {
+            _id: 'a remplir',
+            placeId: place._id,
+            modelName: 'Spiridon',
+            price: 50,
+            sex: "Unisex"
+        };
+
+        userMock
+            .expects('findOne')
+            .withArgs({
+                modelName: 'Spiridon'
+            })
+            .yields(null, expectedModel);
+
+        user.findOne({
+            modelName: 'Spiridon'
+        }, (err, result) => {
+            userMock.verify();
+            userMock.restore();
+            expect(result.modelName).to.equal('Spiridon');
+            done();
+        });
+    });
 });
+describe('Sneakers model', function() {
+    it('should create a Sneakers', (done) => {
+        const sneakersMock = sinon.mock(new Sneakers({}));
+        const sneakers = SneakersMock.object;
 
-  
+        SneakersMock
+            .expects('save')
+            .yields(null);
 
-  
-
-
-
-
-
-
- 
-  
-  
+        sneakers.save((err) => {
+            SneakersMock.verify();
+            SneakersMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+    });
+});
