@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const placeSchema = new mongoose.Schema({
-  placeName: String,
-  coordX: Number,
-  coordY: Number
+  placeName: {type: String, require:true},
+  coordX: {type:Number, require:true},
+  coordY: {type:Number,require:true}
 }, { timestamps: true });
 
 

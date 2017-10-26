@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const brandSchema = new mongoose.Schema({
-  brand: String
+  brand: {type:String, require: true}
 }, { timestamps: true });
 
 

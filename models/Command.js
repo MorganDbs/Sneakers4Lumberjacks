@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
+const Schema=mongoose.Schema;
 //const User=mongoose.model('User').schema;
 const commandSchema = new mongoose.Schema({
   date: {type: Date,default: Date.now},
-  totalPrice:{type: Number, min:0},
-  userId: {type:Schema.Types.ObjectId, ref:'User'},
+  userId: {type:Schema.Types.ObjectId, ref:'User',require:true}
 }, { timestamps: true });
 
 const Command = mongoose.model('Command', commandSchema);

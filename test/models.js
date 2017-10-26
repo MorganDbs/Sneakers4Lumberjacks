@@ -4,13 +4,15 @@ const {
 const sinon = require('sinon');
 require('sinon-mongoose');
 
-const Brand = require('../models/Brand');
-const Command = require('../models/Command');
-const Model = require('../models/Model');
-const Place = require('../models/Place');
-const Reservation = require('../models/Reservation');
-const Sneakers = require('../models/Sneakers');
 const User = require('../models/User');
+const Place = require('../models/Place');
+const Brand = require('../models/Brand');
+const Model = require('../models/Model');
+const Sneakers = require('../models/Sneakers');
+const Command = require('../models/Command');
+const Reservation = require('../models/Reservation');
+
+
 
 describe('User model', function() {
     it('should create a new user', (done) => {
@@ -336,66 +338,62 @@ describe('Place model', function() {
         Place.findOne({
             placeName: 'Himalaya'
         }, (err, result) => {
-            PlaceMock.verify();
-            PlaceMock.restore();
             expect(result.placeName).to.equal('Himalaya');
             done();
         });
     });
 });
-describe('Shoes Model model', function() {
+describe('Model model', function() {
     var place = Place.findOne({
         placeName: 'Himalaya'
     }, (err, result) => {
-        userMock.verify();
-        userMock.restore();
         expect(result.placeName).to.equal('himalaya');
         done();
     });
 
     it('should create a new model', (done) => {
-        const brandMock = sinon.mock(new Model({
+        const modelMock = sinon.mock(new Model({
             placeId: place._id,
             modelName: 'Spiridon',
             price: 50,
             sex: "Unisex"
         }));
-        const brand = BrandMock.object;
+        const model = ModelMock.object;
 
-        BrandMock
+        ModelMock
             .expect('save')
             .yields(null);
 
-        brand.save((err) => {
-            BrandMock.verify();
-            BrandMock.restore();
+        model.save((err) => {
+            ModelMock.verify();
+            ModelMock.restore();
             expects(err).to.be.null;
             done();
         });
     });
     it('should not create a new model', (done) => {
-        const brandMock = sinon.mock(new Model({
+        const modelMock = sinon.mock(new Model({
             placeId: place._id,
             modelName: 'Spiridon',
             price: 50,
             sex: "Unisex"
         }));
-        const brand = BrandMock.object;
+        const model = ModelMock.object;
 
-        BrandMock
+        modelMock
             .expect('save')
             .yields(null);
 
-        brand.save((err) => {
-            BrandMock.verify();
-            BrandMock.restore();
+        model.save((err) => {
+            ModelMock.verify();
+            ModelMock.restore();
             expects(err).to.be.null;
             done();
         });
     });
 
     it('should find model by modelname', function(done) {
-        const userMock = sinon.mock(Model);
+        const modelMock = sinon.mock(Model);
         const expectedModel = {
             _id: 'a remplir',
             placeId: place._id,
@@ -404,18 +402,18 @@ describe('Shoes Model model', function() {
             sex: "Unisex"
         };
 
-        userMock
+        modelMock
             .expects('findOne')
             .withArgs({
                 modelName: 'Spiridon'
             })
             .yields(null, expectedModel);
 
-        user.findOne({
+        model.findOne({
             modelName: 'Spiridon'
         }, (err, result) => {
-            userMock.verify();
-            userMock.restore();
+            ModelMock.verify();
+            ModelMock.restore();
             expect(result.modelName).to.equal('Spiridon');
             done();
         });
@@ -423,7 +421,11 @@ describe('Shoes Model model', function() {
 });
 describe('Sneakers model', function() {
     it('should create a Sneakers', (done) => {
-        const sneakersMock = sinon.mock(new Sneakers({}));
+        var model = Model.findOne({ModelName: 'Spiridon'}, (err, result) => {
+            expect(result.modelName).to.equal('Spiridon');
+            done();
+        });
+        const sneakersMock = sinon.mock(new Sneakers({size: 4,modelId: model._id}));
         const sneakers = SneakersMock.object;
 
         SneakersMock
@@ -437,4 +439,88 @@ describe('Sneakers model', function() {
             done();
         });
     });
+
+    it('should find sneakers by size and modelId', function(done) {
+        var model = Model.findOne({ModelName: 'Spiridon'}, (err, result) => {
+            expect(result.modelName).to.equal('Spiridon');
+            done();
+        });
+        const sneakersMock = sinon.mock(Sneakers);
+        const expectedSneakers = {
+            _id: 'a remplir',
+            modelId: model._id,
+            size: 4
+        };
+
+        SneakersMock
+            .expects('findOne')
+            .withArgs({
+                modelId: model._id,
+                size: 4
+            })
+            .yields(null, expectedSneakers);
+
+        user.findOne({ modelId: model._id , size:4}, (err, result) => {
+            SneakersMock.verify();
+            SneakersMock.restore();
+            expect(result.modelId).to.equal(model._id);
+            expect(result.size).to.equal(4);
+            done();
+        });
+    });
+});
+describe('Command model',function(){
+    it('should create a new Command', (done) => {
+        var user=User.findOne({email: 'test@gmail.com'}, (err, result) => {
+            expect(result.email).to.equal('test@gmail.com');
+            done();
+        });
+        const commandMock = sinon.mock(new Command({ userId: user._id }));
+        const command = CommandMock.object;
+
+        CommandMock
+            .expect('save')
+            .yields(null);
+
+        command.save((err) => {
+            CommandMock.verify();
+            CommandMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+     });
+});
+describe('Reservation model',function(){
+it('should create a new Reservation', (done) => {
+        var user=User.findOne({email: 'test@gmail.com'}, (err, result) => {
+            expect(result.email).to.equal('test@gmail.com');
+            done();
+        });
+        var command= Command.findOne({userId: user._id },(err, result) =>{
+                expect(result.userId).to.equal(user._id);
+                done();
+        });
+        var model= Model.findOne({modelName: 'Spiridon'},(err,result) =>{
+                expect(result.modelName).to.equal('Spiridon');
+                done();
+        });
+        var sneakers= Sneakers.findOne({size:4, modelId: model._id},(err,result) =>){
+            expect(result.size).to.equal(4);
+            expect(result.modelId).to.equal(model._id);
+            done();
+        }
+        const reservationMock = sinon.mock(new Reservation({ commandId: command._id , sneakersId: sneakers._id }));
+        const reservation = ReservationMock.object;
+
+        ReservationMock
+            .expect('save')
+            .yields(null);
+
+        reservation.save((err) => {
+            ReservationMock.verify();
+            ReservationMock.restore();
+            expects(err).to.be.null;
+            done();
+        });
+     });
 });
