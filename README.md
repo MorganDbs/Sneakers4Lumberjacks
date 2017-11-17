@@ -1,6 +1,7 @@
 Starting :
 
 ./Docker_Launch.sh
+npm install node-mongoose-fixtures
 
 Then :
 
