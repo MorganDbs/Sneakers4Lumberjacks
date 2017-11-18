@@ -8,7 +8,7 @@
         span.icon-bar
       a.navbar-brand(href='/')
         i.fa.fa-cube
-        | Project name
+        | Sneakers4Lumberjacks
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li(class=(title === 'Home') ? 'active' : undefined)
@@ -28,7 +28,7 @@
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
-              span= user.profile.firstname || user.username || user.id
+              span= user.profile.firstname || user.email || user.id
               i.caret
             ul.dropdown-menu
               li

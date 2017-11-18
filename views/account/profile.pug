@@ -7,9 +7,9 @@ block content
   form.form-horizontal(action='/account/profile', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='username') Username
+      label.col-sm-3.control-label(for='email') Email
       .col-sm-7
-        input.form-control(type='text', name='username', id='username', value=user.username)
+        input.form-control(type='text', name='email', id='email', value=user.email)
     .form-group
       label.col-sm-3.control-label(for='firstname') First Name
       .col-sm-7
@@ -18,29 +18,18 @@ block content
       label.col-sm-3.control-label Sex
       .col-sm-6
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='male', name='sex', value='male', data-toggle='radio')
+          input(type='radio', checked=user.profile.sex=='male', name='sex', value='male', data-toggle='radio')
           span Male
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='female', name='sex', value='female', data-toggle='radio')
+          input(type='radio', checked=user.profile.sex=='female', name='sex', value='female', data-toggle='radio')
           span Female
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='other', name='sex', value='other', data-toggle='radio')
+          input(type='radio', checked=user.profile.sex=='other', name='sex', value='other', data-toggle='radio')
           span Other
-          .page-header
-            h4 Address
     .form-group
-      label.col-md-3.control-label(for='location') Number
+      label.col-md-3.control-label(for='location') Address
       .col-md-7
-        input.form-control(type='text', name='number', id='number', value=user.profile.address.number)
-      label.col-md-3.control-label(for='location') Street
-      .col-md-7
-        input.form-control(type='text', name='street', id='street', value=user.profile.address.street)
-      label.col-md-3.control-label(for='location') Zipcode
-      .col-md-7
-        input.form-control(type='text', name='zipcode', id='zipcode', value=user.profile.address.zipcode)
-      label.col-md-3.control-label(for='location') City
-      .col-md-7
-        input.form-control(type='text', name='city', id='city', value=user.profile.address.city)
+        input.form-control(type='text', name='address', id='address', value=user.profile.address,placeholder="num street zipcode city")
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
