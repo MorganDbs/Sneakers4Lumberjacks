@@ -5,16 +5,20 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   username:{type: String, unique:true},
   password:String,
-  firstname: String,
-  surname: String,
-  birth:{ type: Date, default: Date.now },
-  sex: String,
-  address:{
-    number:String,
-    street:String,
-    zipcode:String,
-    city: String,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 
+  profile:{
+    firstname: String,
+    surname: String,
+    birth:{ type: Date, default: Date.now },
+    sex: String,
+    address:{
+        number:String,
+        street:String,
+        zipcode:String,
+        city: String,
+      }
   }
 }, { timestamps: true });
 
