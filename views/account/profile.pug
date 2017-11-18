@@ -7,37 +7,40 @@ block content
   form.form-horizontal(action='/account/profile', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='email') Email
+      label.col-sm-3.control-label(for='username') Username
       .col-sm-7
-        input.form-control(type='email', name='email', id='email', value=user.email)
+        input.form-control(type='text', name='username', id='username', value=user.username)
     .form-group
-      label.col-sm-3.control-label(for='name') Name
+      label.col-sm-3.control-label(for='firstname') First Name
       .col-sm-7
-        input.form-control(type='text', name='name', id='name', value=user.profile.name)
+        input.form-control(type='text', name='firstname', id='firstname', value=user.profile.firstname)
     .form-group
-      label.col-sm-3.control-label Gender
+      label.col-sm-3.control-label Sex
       .col-sm-6
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
+          input(type='radio', checked=user.profile.gender=='male', name='sex', value='male', data-toggle='radio')
           span Male
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
+          input(type='radio', checked=user.profile.gender=='female', name='sex', value='female', data-toggle='radio')
           span Female
         label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='other', name='gender', value='other', data-toggle='radio')
+          input(type='radio', checked=user.profile.gender=='other', name='sex', value='other', data-toggle='radio')
           span Other
+          .page-header
+            h4 Address
     .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-7
-        input.form-control(type='text', name='location', id='location', value=user.profile.location)
-    .form-group
-      label.col-sm-3.control-label(for='website') Website
-      .col-sm-7
-        input.form-control(type='text', name='website', id='website', value=user.profile.website)
-    .form-group
-      label.col-sm-3.control-label Gravatar
-      .col-sm-4
-        img(src=user.gravatar(), class='profile', width='100', height='100')
+      label.col-md-3.control-label(for='location') Number
+      .col-md-7
+        input.form-control(type='text', name='number', id='number', value=user.profile.address.number)
+      label.col-md-3.control-label(for='location') Street
+      .col-md-7
+        input.form-control(type='text', name='street', id='street', value=user.profile.address.street)
+      label.col-md-3.control-label(for='location') Zipcode
+      .col-md-7
+        input.form-control(type='text', name='zipcode', id='zipcode', value=user.profile.address.zipcode)
+      label.col-md-3.control-label(for='location') City
+      .col-md-7
+        input.form-control(type='text', name='city', id='city', value=user.profile.address.city)
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
@@ -74,38 +77,3 @@ block content
         button.btn.btn-danger(type='submit')
           i.fa.fa-trash
           | Delete my account
-
-  .page-header
-    h3 Linked Accounts
-  .form-horizontal
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        if user.instagram
-          p: a.text-danger(href='/account/unlink/instagram') Unlink your Instagram account
-        else
-          p: a(href='/auth/instagram') Link your Instagram account
-      .col-sm-offset-3.col-sm-4
-        if user.google
-          p: a.text-danger(href='/account/unlink/google') Unlink your Google account
-        else
-          p: a(href='/auth/google') Link your Google account
-      .col-sm-offset-3.col-sm-4
-        if user.facebook
-          p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
-        else
-          p: a(href='/auth/facebook') Link your Facebook account
-      .col-sm-offset-3.col-sm-4
-        if user.twitter
-          p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
-        else
-          p: a(href='/auth/twitter') Link your Twitter account
-      .col-sm-offset-3.col-sm-4
-        if user.github
-          p: a.text-danger(href='/account/unlink/github') Unlink your GitHub account
-        else
-          p: a(href='/auth/github') Link your GitHub account
-      .col-sm-offset-3.col-sm-4
-        if user.linkedin
-          p: a.text-danger(href='/account/unlink/linkedin') Unlink your LinkedIn account
-        else
-          p: a(href='/auth/linkedin') Link your LinkedIn account
