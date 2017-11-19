@@ -12,13 +12,6 @@ block content
       i.fa.fa-google
       | Google Maps API
 
-  .btn-group.btn-group-justified
-    a.btn.btn-primary(href='https://developers.google.com/maps/documentation/javascript/tutorial', target='_blank')
-      i.fa.fa-check-square-o
-      | Getting Started
-    a.btn.btn-primary(href='https://console.developers.google.com/apis/dashboard', target='_blank')
-      i.fa.fa-laptop
-      | API Console
 
   h3 Markers Example
 
@@ -137,8 +130,8 @@ block content
 
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 36.0907578, lng: -119.5948303 },
-        zoom: 7
+        center: { lat: 0, lng: 0 },
+        zoom: 2
       });
 
       superchargers.forEach(function(sc) {
@@ -155,5 +148,5 @@ block content
       });
     }
 
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCJUqqC9Lg3-ayYuWa1VgDk5hiHiHIe30A&callback=initMap')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB9p-x47L2JxY4TxLmNSi3ivI2E9cQNtHs&callback=initMap')
 

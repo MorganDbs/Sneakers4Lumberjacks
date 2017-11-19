@@ -6,39 +6,10 @@ fixtures.reset();
 fixtures({
     Sneakers: [
         {
-            brand: 'Nike',
-            model: "vapormax",
-            price: "50",
-            description: "Chaussure adequate pour travailler dans le mont blanc",
-            available: {
-                size1 : {
-                    size: 41,
-                    quantity: 3,
-                    available: true
-                },
-                size2 : {
-                    size: 42,
-                    quantity: 3,
-                    available: true
-                },
-                size3 : {
-                    size: 43,
-                    quantity: 3,
-                    available: true
-                }
-            },
-            place: {
-                name: "Mont Blanc",
-                lattitude: "45.833010",
-                longitude: "45.833010"
-            }
-        },
-
-        {
             brand: 'Adidas',
             model: "climacool",
             price: "70",
-            description: "Chaussure adequate pour travailler au mont fuji",
+            description: "Chaussure adequate pour travailler au mont Aneto",
             available: {
                 size1: {
                     size: 41,
@@ -57,9 +28,38 @@ fixtures({
                 }
             },
             place: {
-                name: "Mont Fuji",
-                lattitude: "35.361570",
-                longitude: "138.728078"
+                name: "Aneto",
+                latitude: 42.632082,
+                longitude: 0.656752
+            }
+        },
+
+        {
+            brand: 'Nike',
+            model: "vapormax",
+            price: "50",
+            description: "Chaussure adequate pour travailler dans le mont blanc",
+            available: {
+                size1: {
+                    size: 41,
+                    quantity: 3,
+                    available: true
+                },
+                size2: {
+                    size: 42,
+                    quantity: 3,
+                    available: true
+                },
+                size3: {
+                    size: 43,
+                    quantity: 3,
+                    available: true
+                }
+            },
+            place: {
+                name: "Mont Blanc",
+                latitude: 45.833010,
+                longitude: 6.865432
             }
         },
 
@@ -67,7 +67,7 @@ fixtures({
             brand: 'Jordan',
             model: "kaws",
             price: "100",
-            description: "Chaussure adequate pour travailler dans les rocheuses",
+            description: "Chaussure adequate pour travailler à Aspen",
             available: {
                 size1: {
                     size: 41,
@@ -86,9 +86,9 @@ fixtures({
                 }
             },
             place: {
-                name: "Rocheuses",
-                lattitude: "44.408828",
-                longitude: " -109.772155"
+                name: "Aspen",
+                latitude: 39.201270,
+                longitude: -106.788660
             }
         },
     ]

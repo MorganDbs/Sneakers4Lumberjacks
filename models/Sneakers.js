@@ -24,8 +24,8 @@ const sneakersSchema = new mongoose.Schema({
     },
     place: {
         name: String,
-        lattitude: String,
-        longitude: String
+        latitude: Number,
+        longitude: Number
     }
 }, { timestamps: true });
 const Sneakers = mongoose.model('Sneakers', sneakersSchema);

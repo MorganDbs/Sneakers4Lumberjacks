@@ -1,0 +1,70 @@
+extends ./layout
+
+block content
+  style.
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+
+  .page-header
+    h3 Lieux Proposes
+        h4 Lieux le plus proche de chez vous
+            #proche
+
+  #map
+
+  script.
+    var shoes =!{JSON.stringify(places)}
+    var geo =!{JSON.stringify(ip)}
+    var dist = [];
+    var proche = { 'model': shoes, 'distance' : 99999999999999999999999999};
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 50, lng: -50 },
+        zoom: 3
+      });
+      shoes.forEach(function (shoes) {
+            var marker = new google.maps.Marker({
+                position: {lat: shoes.place.latitude, lng: shoes.place.longitude},
+                map: map,
+                title: shoes.model
+            });
+
+            var client = new google.maps.LatLng(geo[0],geo[1]);
+            var place = new google.maps.LatLng(shoes.place.latitude,shoes.place.longitude);
+            var distance = google.maps.geometry.spherical.computeDistanceBetween( client, place);
+            var res = { 'model': shoes, 'distance' : distance/1000};
+            dist.push(res);
+
+
+            var infowindow = new google.maps.InfoWindow({
+                content: '<div>'
+                + '<h4>' + shoes.brand + ' - ' + shoes.model + '</h4>'
+                + '<img class="thumb_map" src="/img/' + shoes.model + '.jpg">'
+                + '<h5>Lieu : ' + shoes.place.name + '</h5>'
+                + '<h5>Prix : ' + shoes.price + 'e</h5>'
+                + '<a href="/sneakers/'+ shoes.model +'" class="btn btn-primary btn-sm active" role="button">En savoir plus</a>'
+                + '</div>'
+            });
+
+            marker.addListener('click', function(){
+                infowindow.open(map, marker);
+            });
+        });
+        for(var i= 0; i < dist.length; i++){
+            if(dist[i].distance < proche.distance){
+                proche = dist[i];
+            }
+        }
+
+        var html = '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
+        html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">'
+        document.getElementById("proche").innerHTML = html;
+    }
+    
+    
+    
+
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB9p-x47L2JxY4TxLmNSi3ivI2E9cQNtHs&libraries=geometry&callback=initMap')
