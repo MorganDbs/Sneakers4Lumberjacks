@@ -60,11 +60,12 @@ block content
         }
 
         var html = '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
-        html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">'
+        html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">';
+        html +='<a href="/sneakers/'+ proche.model.model +'" class="btn btn-primary btn-sm active" role="button">Voir</a>'
         document.getElementById("proche").innerHTML = html;
     }
-    
-    
-    
+
+
+
 
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB9p-x47L2JxY4TxLmNSi3ivI2E9cQNtHs&libraries=geometry&callback=initMap')
