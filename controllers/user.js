@@ -3,11 +3,6 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
-exports.getUsers = (req, res) => {
-  User.find((err, docs) => {
-    res.render('user', { users: docs });
-  });
-  };
 /**
  * GET /login
  * Login page.
@@ -23,12 +18,12 @@ exports.getLogin = (req, res) => {
 
 /**
  * POST /login
- * Sign in using Username and password.
+ * Sign in using email and password.
  */
 exports.postLogin = (req, res, next) => {
-  req.assert('email', 'Email is not valid').notEmpty();
+  req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password cannot be blank').notEmpty();
-
+  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
   const errors = req.validationErrors();
 
   if (errors) {
@@ -77,10 +72,10 @@ exports.getSignup = (req, res) => {
  * Create a new local account.
  */
 exports.postSignup = (req, res, next) => {
-   req.assert('email', 'Email is not valid').notEmpty();
+   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-
+   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
   const errors = req.validationErrors();
 
   if (errors) {
@@ -93,9 +88,10 @@ exports.postSignup = (req, res, next) => {
     password: req.body.password
   });
 
-  User.findOne({ username: req.body.email }, (err, existingUser) => {
+  User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
+      console.log("test.");
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');
     }
@@ -126,8 +122,8 @@ exports.getAccount = (req, res) => {
  * Update profile information.
  */
 exports.postUpdateProfile = (req, res, next) => {
-  req.assert('email', 'Please enter a valid email address.').notEmpty();
-
+  req.assert('email', 'Please enter a valid email address.').isEmail();
+  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
   const errors = req.validationErrors();
 
@@ -140,13 +136,14 @@ exports.postUpdateProfile = (req, res, next) => {
     if (err) { return next(err); }
     user.email = req.body.email || '';
     user.profile.firstname = req.body.firstname || '';
+    user.profile.surname = req.body.surname || '';
     user.profile.sex = req.body.sex || '';
     user.profile.address = req.body.address || '';
 
     user.save((err) => {
       if (err) {
         if (err.code === 11000) {
-          req.flash('errors', { msg: 'The username you have entered is already associated with an account.' });
+          req.flash('errors', { msg: 'The email you have entered is already associated with an account.' });
           return res.redirect('/account');
         }
         return next(err);

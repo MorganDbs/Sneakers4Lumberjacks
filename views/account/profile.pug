@@ -9,11 +9,15 @@ block content
     .form-group
       label.col-sm-3.control-label(for='email') Email
       .col-sm-7
-        input.form-control(type='text', name='email', id='email', value=user.email)
+        input.form-control(type='email', name='email', id='email', value=user.email)
     .form-group
       label.col-sm-3.control-label(for='firstname') First Name
       .col-sm-7
         input.form-control(type='text', name='firstname', id='firstname', value=user.profile.firstname)
+    .form-group
+      label.col-sm-3.control-label(for='name') Sur Name
+      .col-sm-7
+        input.form-control(type='text', name='surname', id='surname', value=user.profile.surname)
     .form-group
       label.col-sm-3.control-label Sex
       .col-sm-6
@@ -27,9 +31,9 @@ block content
           input(type='radio', checked=user.profile.sex=='other', name='sex', value='other', data-toggle='radio')
           span Other
     .form-group
-      label.col-md-3.control-label(for='location') Address
-      .col-md-7
-        input.form-control(type='text', name='address', id='address', value=user.profile.address,placeholder="num street zipcode city")
+      label.col-sm-3.control-label(for='location') Address
+      .col-sm-7
+        input.form-control(type='text', name='address', id='address', value=user.profile.address)
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
@@ -66,3 +70,38 @@ block content
         button.btn.btn-danger(type='submit')
           i.fa.fa-trash
           | Delete my account
+
+  .page-header
+    h3 Linked Accounts
+  .form-horizontal
+    .form-group
+      .col-sm-offset-3.col-sm-4
+        if user.instagram
+          p: a.text-danger(href='/account/unlink/instagram') Unlink your Instagram account
+        else
+          p: a(href='/auth/instagram') Link your Instagram account
+      .col-sm-offset-3.col-sm-4
+        if user.google
+          p: a.text-danger(href='/account/unlink/google') Unlink your Google account
+        else
+          p: a(href='/auth/google') Link your Google account
+      .col-sm-offset-3.col-sm-4
+        if user.facebook
+          p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
+        else
+          p: a(href='/auth/facebook') Link your Facebook account
+      .col-sm-offset-3.col-sm-4
+        if user.twitter
+          p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
+        else
+          p: a(href='/auth/twitter') Link your Twitter account
+      .col-sm-offset-3.col-sm-4
+        if user.github
+          p: a.text-danger(href='/account/unlink/github') Unlink your GitHub account
+        else
+          p: a(href='/auth/github') Link your GitHub account
+      .col-sm-offset-3.col-sm-4
+        if user.linkedin
+          p: a.text-danger(href='/account/unlink/linkedin') Unlink your LinkedIn account
+        else
+          p: a(href='/auth/linkedin') Link your LinkedIn account
