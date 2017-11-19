@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  username:{type: String, unique:true},
+  email: { type: String, unique: true },
   password:String,
   passwordResetToken: String,
   passwordResetExpires: Date,
@@ -13,12 +13,7 @@ const userSchema = new mongoose.Schema({
     surname: String,
     birth:{ type: Date, default: Date.now },
     sex: String,
-    address:{
-        number:String,
-        street:String,
-        zipcode:String,
-        city: String,
-      }
+    address:String,
   }
 }, { timestamps: true });
 
