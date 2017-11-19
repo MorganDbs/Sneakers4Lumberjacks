@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .page-header
+    h3 All Sneakers
+
+    .row
+        for shoes in sneakers
+            .col-sm-4
+                    img(class="thumb" src='/img/'+ shoes.model + '.jpg')
+                    h3= shoes.brand + ' ' + shoes.model
+                    h4= shoes.place.name
+                    h4= shoes.price + 'e'
