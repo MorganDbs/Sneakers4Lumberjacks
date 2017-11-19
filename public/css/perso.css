@@ -3,3 +3,8 @@ img.thumb {
     height: auto;
     border: 1px solid black;
 }
+
+img.thumb_map{
+    width:200px;
+    height: auto;
+}

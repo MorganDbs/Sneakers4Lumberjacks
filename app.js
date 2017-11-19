@@ -37,6 +37,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const sneakersController = require('./controllers/sneakers');
+const mapsController = require('./controllers/maps');
 
 /**
  * API keys and Passport configuration.
@@ -47,7 +48,7 @@ const passportConfig = require('./config/passport');
  * Create Express server.
  */
 const app = express();
-
+app.set('trust proxy', true);
 /**
  * Connect to MongoDB.
  */
@@ -126,6 +127,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/sneakers', sneakersController.getAllSneakerss);
 app.get('/sneakers/:name', sneakersController.getSneakers);
+app.get('/maps', mapsController.getClientGeolocation );
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
