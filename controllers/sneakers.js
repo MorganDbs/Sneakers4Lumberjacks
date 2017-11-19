@@ -5,3 +5,10 @@ exports.getAllSneakerss = (req, res) => {
         res.render('sneakers', { sneakers: docs });
     });
 };
+
+exports.getSneakers = (req, res) => {
+    var name = req.params.name;
+    Sneakers.find({ model: name }, function (err, docs) {
+        res.render('sneakersDescription', { sneakersdes: docs });
+    });
+};

@@ -9,6 +9,7 @@ fixtures({
             brand: 'Nike',
             model: "vapormax",
             price: "50",
+            description: "Chaussure adequate pour travailler dans le mont blanc",
             available: {
                 size1 : {
                     size: 41,
@@ -37,6 +38,7 @@ fixtures({
             brand: 'Adidas',
             model: "climacool",
             price: "70",
+            description: "Chaussure adequate pour travailler au mont fuji",
             available: {
                 size1: {
                     size: 41,
@@ -65,6 +67,7 @@ fixtures({
             brand: 'Jordan',
             model: "kaws",
             price: "100",
+            description: "Chaussure adequate pour travailler dans les rocheuses",
             available: {
                 size1: {
                     size: 41,

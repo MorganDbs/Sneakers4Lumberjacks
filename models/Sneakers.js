@@ -4,6 +4,7 @@ const sneakersSchema = new mongoose.Schema({
     brand: String,
     model: String,
     price: Number,
+    description: String,
     available: {
         size1: {
             size: Number,

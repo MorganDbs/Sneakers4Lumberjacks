@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    for shoes in sneakersdes
+        .page-header
+            h3= shoes.brand + ' ' + shoes.model
+            .row
+                .col-sm-4
+                        img(class="thumb" src='/img/'+ shoes.model + '.jpg')
+                        h3 Description :
+                        h4= shoes.description
+                        h4= 'Lieux : ' + shoes.place.name
+                        h4= 'Prix : ' + shoes.price + 'e'
+                        select.custom-select
+                            option
+                                selected Tailles 
+                            option= shoes.available.size1.size
+                            option= shoes.available.size2.size
+                            option= shoes.available.size3.size
+                        button.btn.btn-primary.btn-lg.btn-block(type='submit') Commander
