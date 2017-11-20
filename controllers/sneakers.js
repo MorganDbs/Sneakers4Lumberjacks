@@ -8,9 +8,12 @@ exports.getAllSneakerss = (req, res) => {
 
 exports.getSneakers = (req, res) => {
     var name = req.params.name;
+    res.locals.login = req.isAuthenticated();
     Sneakers.find({ model: name }, function (err, docs) {
-        res.render('sneakersDescription', {
-          sneakersdes: docs
-        });
+        res.render('sneakersDescription', { sneakersdes: docs, auth: res.locals.login});
     });
+};
+
+exports.addBasket = (req, res) => {
+    console.log(req);
 };

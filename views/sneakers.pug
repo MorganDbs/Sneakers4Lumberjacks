@@ -11,5 +11,4 @@ block content
                     h3= shoes.brand + ' ' + shoes.model
                     h4= shoes.place.name
                     h4= shoes.price + 'e'
-                    button.col-sm-3.btn.btn-primary(type='submit')
-                      a(style='color:white;' href='/sneakers/'+shoes.model) Voir
+                    a(href='/sneakers/'+shoes.model class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Voir

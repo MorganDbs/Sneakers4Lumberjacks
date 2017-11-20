@@ -126,7 +126,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.get('/', homeController.index);
 app.get('/sneakers', sneakersController.getAllSneakerss);
-app.get('/sneakers/:name',sneakersController.getSneakers);
+app.get('/sneakers/:name', sneakersController.getSneakers);
+app.post('/sneakers/:name', sneakersController.addBasket);
 app.get('/maps', mapsController.getClientGeolocation );
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

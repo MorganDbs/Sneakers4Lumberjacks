@@ -3,18 +3,34 @@ extends layout
 block content
     for shoes in sneakersdes
         .page-header
-            h3= shoes.brand + ' ' + shoes.model
             .row
                 .col-sm-4
-                        img(class="thumb" src='/img/'+ shoes.model + '.jpg')
-                        h3 Description :
-                        h4= shoes.description
-                        h4= 'Lieux : ' + shoes.place.name
-                        h4= 'Prix : ' + shoes.price + 'e'
-                        select.custom-select
-                            option
-                                selected Tailles
-                            option= shoes.available.size1.size
-                            option= shoes.available.size2.size
-                            option= shoes.available.size3.size
-                        button.btn.btn-primary.btn-lg.btn-block(type='submit') Commander
+                        form.form-horizontal(id='add-basket', method='POST')
+                            input(type='hidden', name='_csrf', value=_csrf)
+                            .form-group
+                                label= shoes.brand + ' ' + shoes.model
+                                input(type='hidden', name='shoes', value=shoes)
+                                img(class="thumb" src='/img/'+ shoes.model + '.jpg')
+                                h3 Description :
+                                label
+                                    h4= shoes.description
+                                h4= 'Lieux : ' + shoes.place.name
+                                h4= 'Prix : ' + shoes.price + 'e'
+                                select.custom-select.select-size
+                                    option
+                                        selected Tailles
+                                    option= shoes.available.size1.size
+                                    option= shoes.available.size2.size
+                                    option= shoes.available.size3.size
+                                br
+                                br
+                                if auth          
+                                    button.btn.btn-primary.btn-lg.btn-block(type='submit') Commander 
+                                else
+                                    button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
+                                    p 
+                                        |Merci de vous 
+                                        a( href='/login') connecter 
+                                        | ou   
+                                        a( href='/signup')  creer un compte
+                        
