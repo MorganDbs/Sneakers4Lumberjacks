@@ -6,7 +6,7 @@ exports.getClientGeolocation = (req, res) => {
     publicIp.v4().then(ip => {
         var geo = geoip.lookup(ip);
         Sneakers.find((err, docs) => {
-            res.render('maps', { places: docs, ip: geo.ll});
-        }); 
+            res.render('maps', {  title:'Maps',places: docs, ip: geo.ll});
+        });
     });
 };
