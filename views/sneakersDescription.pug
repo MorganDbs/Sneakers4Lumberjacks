@@ -14,23 +14,17 @@ block content
                                 h3 Description :
                                 label
                                     h4= shoes.description
-                                h4= 'Lieux : ' + shoes.place.name
-                                h4= 'Prix : ' + shoes.price + 'e'
-                                form.form-horizontal(action='/'+shoes.model+'/command', method='POST')
-                                  select.custom-select.select-size
-                                    option
-                                      selected Tailles
-                                        option= shoes.available.size1.size
-                                        option= shoes.available.size2.size
-                                        option= shoes.available.size3.size
+                                    h4= 'Lieux : ' + shoes.place
+                                    h4= 'Prix : ' + shoes.price + 'e'
                                 br
                                 br
                                 if auth
                                   a(href='/add-to-basket/'+shoes._id class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Commander
                                 else
                                     button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
+                                    br
                                     p
-                                        |Merci de vous
-                                        a( href='/login') connecter
+                                        |Merci de vous 
+                                        a( href='/login') connecter 
                                         | ou
                                         a( href='/signup')  creer un compte
