@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const commandSchema = new mongoose.Schema({
   date: {type: Date,default: Date.now},
   totalPrice:{type: Number, min:0},
-  userId: {type:Schema.Types.ObjectId, ref:'User'},
+  email: String,
 }, { timestamps: true });
 
 const Command = mongoose.model('Command', commandSchema);
