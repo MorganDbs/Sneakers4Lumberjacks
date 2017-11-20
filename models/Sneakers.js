@@ -1,32 +1,8 @@
 const mongoose = require('mongoose');
-
+const Schema=mongoose.Schema;
 const sneakersSchema = new mongoose.Schema({
-    brand: String,
-    model: String,
-    price: Number,
-    description: String,
-    available: {
-        size1: {
-            size: Number,
-            quantity: Number,
-            available: Boolean
-        },
-        size2: {
-            size: Number,
-            quantity: Number,
-            available: Boolean
-        },
-        size3: {
-            size: Number,
-            quantity: Number,
-            available: Boolean
-        }
-    },
-    place: {
-        name: String,
-        latitude: Number,
-        longitude: Number
-    }
+  size:{type:Number,min:4,max:12,require:true},
+  model:String,
 }, { timestamps: true });
 const Sneakers = mongoose.model('Sneakers', sneakersSchema);
 module.exports = Sneakers;

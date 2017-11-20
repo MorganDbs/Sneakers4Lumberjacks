@@ -1,7 +1,8 @@
 const Sneakers = require('../models/Sneakers.js');
-
+const Model =require('../models/Model.js');
+var Basket= require('../models/Basket');
 exports.getAllSneakerss = (req, res) => {
-    Sneakers.find((err, docs) => {
+    Model.find((err, docs) => {
         res.render('sneakers', {  sneakers: docs,title:'Sneakers'});
     });
 };
@@ -15,5 +16,17 @@ exports.getSneakers = (req, res) => {
 };
 
 exports.addBasket = (req, res) => {
-    console.log(req);
+  var sneakersid = req.params.id;
+  var basket = new Basket(req.session.basket ? req.session.basket : {sneakers:{}});
+  Sneakers.findById(sneakersid,function(err,sneakers){
+    if(err){
+      return res.redirect('/');
+    }
+    basket.add(sneakers,sneakers.id);
+    req.session.basket=basket;
+    res.redirect('/');
+  });
 };
+exports.seeBasket=(req,res)=>{
+    res.render('basket');
+}

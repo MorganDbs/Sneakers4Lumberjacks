@@ -26,7 +26,7 @@ block content
                                 br
                                 br
                                 if auth
-                                    button.btn.btn-primary.btn-lg.btn-block(type='submit') Commander
+                                  a(href='/add-to-basket/'+shoes._id class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Commander
                                 else
                                     button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
                                     p

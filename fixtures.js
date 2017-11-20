@@ -1,97 +1,106 @@
 const Sneakers = require('./models/Sneakers');
+const Place=require('./models/Place');
+const Brand=require('./models/Brand');
+const Model=require('./models/Model');
 var fixtures = require('node-mongoose-fixtures');
 
 fixtures.reset();
 
 fixtures({
+    Place : [
+      {
+        name: 'Aneto',
+        latitude: 42.632082,
+        longitude: 0.656752
+      },
+      {
+        name: "Mont Blanc",
+        latitude: 45.833010,
+        longitude: 6.865432
+      },
+      {
+      name: "Aspen",
+      latitude: 39.201270,
+      longitude: -106.788660
+    },
+  ],
+    Brand : [
+      {brand: 'Adidas'},
+      {brand: 'Nike'},
+      {brand: 'Jordan'},
+
+    ],
+    Model : [
+      {
+        brand: 'Adidas',
+        model:"climacool",
+        description: "Chaussure adequate pour travailler au mont Aneto",
+        place:"Aneto",
+        price: "70",
+        
+      },
+      {
+        brand: 'Nike',
+        model:'vapormax',
+        place:"Mont Blanc",
+        description: "Chaussure adequate pour travailler dans le mont blanc",
+        price: "50",
+      },
+
+      {
+        brand: 'Jordan',
+        description: "Chaussure adequate pour travailler ï¿½ Aspen",
+        model: 'kaws',
+        place: "Aspen",
+        price: "100",
+      },
+
+    ],
+
     Sneakers: [
         {
-            brand: 'Adidas',
             model: "climacool",
-            price: "70",
-            description: "Chaussure adequate pour travailler au mont Aneto",
-            available: {
-                size1: {
-                    size: 41,
-                    quantity: 1,
-                    available: true
-                },
-                size2: {
-                    size: 45,
-                    quantity: 3,
-                    available: true
-                },
-                size3: {
-                    size: 42,
-                    quantity: 2,
-                    available: true
-                }
-            },
-            place: {
-                name: "Aneto",
-                latitude: 42.632082,
-                longitude: 0.656752
-            }
+            size: 5,
         },
-
         {
-            brand: 'Nike',
+            model: "climacool",
+            size: 6,
+        },
+        {
+            model: "climacool",
+            size: 7,
+        },
+        {
             model: "vapormax",
-            price: "50",
-            description: "Chaussure adequate pour travailler dans le mont blanc",
-            available: {
-                size1: {
-                    size: 41,
-                    quantity: 3,
-                    available: true
-                },
-                size2: {
-                    size: 42,
-                    quantity: 3,
-                    available: true
-                },
-                size3: {
-                    size: 43,
-                    quantity: 3,
-                    available: true
-                }
-            },
-            place: {
-                name: "Mont Blanc",
-                latitude: 45.833010,
-                longitude: 6.865432
-            }
+            size: 5,
+        },
+        {
+            model: "vapormax",
+            size: 6,
         },
 
         {
-            brand: 'Jordan',
+            model: "vapormax",
+            size: 7,
+        },
+
+        {
             model: "kaws",
-            price: "100",
-            description: "Chaussure adequate pour travailler à Aspen",
-            available: {
-                size1: {
-                    size: 41,
-                    quantity: 4,
-                    available: true
-                },
-                size2: {
-                    size: 40,
-                    quantity: 3,
-                    available: true
-                },
-                size3: {
-                    size: 45,
-                    quantity: 1,
-                    available: true
-                }
-            },
-            place: {
-                name: "Aspen",
-                latitude: 39.201270,
-                longitude: -106.788660
-            }
+            size: 5,
+
+        },
+        {
+            model: "kaws",
+            size: 6,
+
+        },
+
+        {
+            model: "kaws",
+            size: 7,
+
         },
     ]
 }, function (err, data) {
-    // data is an array of all the documents created 
+    // data is an array of all the documents created
 });

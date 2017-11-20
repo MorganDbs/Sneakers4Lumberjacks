@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .page-header
+    h3 Basket
+
+  if sneakers
+    for shoes in sneakersBask
+      .col-sm-4
+          img(class="thumb" src='/img/'+ shoes.model + '.jpg')
+          h3= shoes.brand + ' ' + shoes.model
+          h4= shoes.place.name
+          h4= shoes.price + 'e'
+      .col-sm-12
+        h3= basket.totalprice
+  else
+    h4 No Items in Basket

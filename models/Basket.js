@@ -1,51 +1,24 @@
-const Sneakers = require('../models/Sneakers.js');
-class Basket {
+module.exports = function Basket(oldBasket){
+  this.sneakers =oldBasket.sneakers || {};
+  this.totalQty=oldBasket.totalQty || 0;
+  this.totalPrice=oldBasket.totalPrice || 0;
 
-    constructor() {
-        this.products = [];
+  this.add =  function(sneakers,id){
+    var storedSneakers =this.sneakers[id];
+    if(!storedSneakers){
+      storedSneakers =this.sneakers[id] = {neakers: sneakers, qty:0, price: 0}
     }
+    storedSneakers.qty ++;
+    storedSneakers.price=storedSneakers.price * storedSneakers.qty;
+    this.totalQty ++;
+    this.Total += storedSneakers.price;
+  };
 
-    add(item) {
-        if (sneakers) {
-            var index = this.products.findIndex(
-                (p) => p.sneakers === sneakers
-            );
-            if (index === -1) {
-                this.products.push({
-                    sneakers: sneakers,
-                    quantity: 1
-                });
-            } else {
-                this.products[index].quantity += 1;
-            }
-        }
-    }
-
-    remove(index) {
-        if (index < this.products.length) {
-            this.products.splice(index, 1);
-        }
-    }
-    print() {
-        var index = 0;
-        this.products.forEach(
-            (p) => console.log(
-                index++ + '. ' + p.sneakers.brand + '  ' + p.sneakers.model + (p.quantity * p.sneakers.price).toFixed(2)+ '\t = e'
-            )
-        );
-        console.log('');
-        var sum = this.getSumPrice();
-        console.log('Total: ' + sum.toFixed(2)+' e');
-    }
-
-    getSumPrice() {
-        var total = 0;
-        this.products.forEach(
-            (p) => total += (p.quantity * p.sneakers.price)
-        );
-        return total.toFixed(2);
-    }
-
-}
-
-module.exports = Basket;
+  this.generateArray = function(){
+      var arr=[];
+      for(var id in his.sneakers){
+        arr.push(this.sneakers[id]);
+      }
+      return arr;
+  };
+};
