@@ -15,8 +15,9 @@ block content
   #map
 
   script.
-    var shoes =!{JSON.stringify(places)};
-    var geo =!{JSON.stringify(ip)}
+    var places =!{JSON.stringify(places)};
+    var shoes =!{JSON.stringify(sneakers)};
+    var geo =!{JSON.stringify(ip)};
     var dist = [];
     var proche = { 'model': shoes, 'distance' : 99999999999999999999999999};
     var html = '';
@@ -26,16 +27,26 @@ block content
         center: { lat: 50, lng: -50 },
         zoom: 3
       });
+
       shoes.forEach(function (shoes) {
+            var lat = 0;
+            var lng = 0;
+            places.forEach(function (places) {
+                if(shoes.place === places.name){
+                    lat = places.latitude;
+                    lng = places.longitude;
+                }
+            });
+
             var marker = new google.maps.Marker({
-                position: {lat: shoes.place.latitude, lng: shoes.place.longitude},
+                position: {lat: lat, lng: lng},
                 map: map,
                 title: shoes.model
             });
 
             if(geo != null){
                 var client = new google.maps.LatLng(geo[0],geo[1]);
-                var place = new google.maps.LatLng(shoes.place.latitude,shoes.place.longitude);
+                var place = new google.maps.LatLng(lat,lng);
                 var distance = google.maps.geometry.spherical.computeDistanceBetween( client, place);
                 var res = { 'model': shoes, 'distance' : distance/1000};
                 dist.push(res);
