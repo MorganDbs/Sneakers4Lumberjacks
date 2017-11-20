@@ -9,19 +9,20 @@ block content
 
   .page-header
     h3 Lieux Proposes
-        h4 Lieux le plus proche de chez vous
+        h4 Lieux le plus proche de chez vous :
             #proche
 
   #map
 
   script.
-    var shoes =!{JSON.stringify(places)}
+    var shoes =!{JSON.stringify(places)};
     var geo =!{JSON.stringify(ip)}
     var dist = [];
     var proche = { 'model': shoes, 'distance' : 99999999999999999999999999};
+    var html = '';
 
     function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 50, lng: -50 },
         zoom: 3
       });
@@ -32,11 +33,13 @@ block content
                 title: shoes.model
             });
 
-            var client = new google.maps.LatLng(geo[0],geo[1]);
-            var place = new google.maps.LatLng(shoes.place.latitude,shoes.place.longitude);
-            var distance = google.maps.geometry.spherical.computeDistanceBetween( client, place);
-            var res = { 'model': shoes, 'distance' : distance/1000};
-            dist.push(res);
+            if(geo != null){
+                var client = new google.maps.LatLng(geo[0],geo[1]);
+                var place = new google.maps.LatLng(shoes.place.latitude,shoes.place.longitude);
+                var distance = google.maps.geometry.spherical.computeDistanceBetween( client, place);
+                var res = { 'model': shoes, 'distance' : distance/1000};
+                dist.push(res);
+            }
 
 
             var infowindow = new google.maps.InfoWindow({
@@ -59,8 +62,13 @@ block content
             }
         }
 
-        var html = '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
-        html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">'
+        if(geo != null){
+            html += '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
+            html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">'
+        }else{
+            html += "<div>Malheureusement nous n'avons pas pu vous localiser..</div>";
+        }
+        
         document.getElementById("proche").innerHTML = html;
     }
     
