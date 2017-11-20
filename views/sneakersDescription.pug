@@ -16,21 +16,21 @@ block content
                                     h4= shoes.description
                                 h4= 'Lieux : ' + shoes.place.name
                                 h4= 'Prix : ' + shoes.price + 'e'
-                                select.custom-select.select-size
+                                form.form-horizontal(action='/'+shoes.model+'/command', method='POST')
+                                  select.custom-select.select-size
                                     option
-                                        selected Tailles
-                                    option= shoes.available.size1.size
-                                    option= shoes.available.size2.size
-                                    option= shoes.available.size3.size
+                                      selected Tailles
+                                        option= shoes.available.size1.size
+                                        option= shoes.available.size2.size
+                                        option= shoes.available.size3.size
                                 br
                                 br
-                                if auth          
-                                    button.btn.btn-primary.btn-lg.btn-block(type='submit') Commander 
+                                if auth
+                                  a(href='/add-to-basket/'+shoes._id class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Commander
                                 else
                                     button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
-                                    p 
-                                        |Merci de vous 
-                                        a( href='/login') connecter 
-                                        | ou   
+                                    p
+                                        |Merci de vous
+                                        a( href='/login') connecter
+                                        | ou
                                         a( href='/signup')  creer un compte
-                        
