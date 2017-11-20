@@ -1,6 +1,15 @@
 extends ../layout
 
 block content
+  if command
+    .page-header
+      h3 Old Commands
+      .row
+        for command in command
+            .col-sm-4
+                    h4= command.date
+                    h4= command.totalPrice
+
   .page-header
     h3 Profile Information
 
@@ -40,8 +49,7 @@ block content
           i.fa.fa-pencil
           | Update Profile
 
-  .page-header
-    h3 Change Password
+
 
   form.form-horizontal(action='/account/password', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)

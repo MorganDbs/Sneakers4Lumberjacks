@@ -3,6 +3,7 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Command = require('../models/Command');
 /**
  * GET /login
  * Login page.
@@ -112,9 +113,17 @@ exports.postSignup = (req, res, next) => {
  * Profile page.
  */
 exports.getAccount = (req, res) => {
-  res.render('account/profile', {
-    title: 'Account Management'
+  var id = req.user._id;
+  var user = User.findById(id);
+  var num=Command.find({ email: user.email }).count();
+  if(num>0){
+  Command.find({ email: user.email }, function (err, docs) {
+      res.render('account/profile', { command: docs, auth: res.locals.login,title: 'Account Management'});
   });
+}
+else{
+  res.render('account/profile', {  auth: res.locals.login,title: 'Account Management'});
+}
 };
 
 /**
