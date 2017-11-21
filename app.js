@@ -129,6 +129,7 @@ app.get('/sneakers/:name', sneakersController.getSneakers);
 app.get('/maps', mapsController.getClientGeolocation);
 app.get('/basket', basketController.getBasket);
 app.post('/basket', basketController.addBasket);
+app.get('/basket/delete/:id', basketController.deleteItemBasket);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

@@ -3,8 +3,9 @@ extends layout
 block content
   .page-header
     h3 Basket
-        div
-            #basket
+    br
+    div
+        #basket
 
     script.
         var basket =!{JSON.stringify(basket)};
@@ -18,9 +19,9 @@ block content
         }
 
         if(isEmpty(basket)){
-            document.getElementById('basket').innerHTML = '<p>ptdr t as pas d item</p>';
+            document.getElementById('basket').innerHTML = '<p>Your basket is empty</p>';
         }else{
-            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Duration</th><th>Price</th></thead><tbody>";
+            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Duration</th><th>Price</th><th></th></thead><tbody>";
             var price = 0;
             basket.forEach(function (basket) {
                 price += basket.totalPrice;
@@ -31,6 +32,7 @@ block content
                 html += "<th>"+basket.size+"</th>";
                 html += "<th>"+basket.duree+" days</th>";
                 html += "<th>"+basket.totalPrice+"e</th>";
+                html += '<th><a href="/basket/delete/'+basket._id+'" role="button">Supprimer</a></th>';
                 html += "</tr>";
             });
             html += "</tbody></table>";
