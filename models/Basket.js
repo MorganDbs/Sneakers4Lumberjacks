@@ -1,24 +1,14 @@
-module.exports = function Basket(oldBasket){
-  this.sneakers =oldBasket.sneakers || {};
-  this.totalQty=oldBasket.totalQty || 0;
-  this.totalPrice=oldBasket.totalPrice || 0;
+const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+const basketSchema = new mongoose.Schema({
+  duree: Number,
+  totalPrice:{type: Number, min:0},
+  userId: { type: Schema.Types.ObjectId, ref: 'User' },
+  model: String,
+  brand: String,
+  size: Number
+}, { timestamps: true });
 
-  this.add =  function(sneakers,id){
-    var storedSneakers =this.sneakers[id];
-    if(!storedSneakers){
-      storedSneakers =this.sneakers[id] = {neakers: sneakers, qty:0, price: 0}
-    }
-    storedSneakers.qty ++;
-    storedSneakers.price=storedSneakers.price * storedSneakers.qty;
-    this.totalQty ++;
-    this.Total += storedSneakers.price;
-  };
+const Basket = mongoose.model('Basket', basketSchema);
 
-  this.generateArray = function(){
-      var arr=[];
-      for(var id in his.sneakers){
-        arr.push(this.sneakers[id]);
-      }
-      return arr;
-  };
-};
+module.exports = Basket;

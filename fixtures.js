@@ -22,7 +22,12 @@ fixtures({
       name: "Aspen",
       latitude: 39.201270,
       longitude: -106.788660
-    },
+      },
+      {
+          name: "Rokua",
+          latitude: 64.563729,
+          longitude: 26.510911
+      }
   ],
     Brand : [
       {brand: 'Adidas'},
@@ -49,55 +54,75 @@ fixtures({
 
       {
         brand: 'Jordan',
-        description: "Chaussure adequate pour travailler � Aspen",
+        description: "Chaussure adequate pour travailler a Aspen",
         model: 'kaws',
         place: "Aspen",
         price: "100",
       },
-
+      {
+          brand: 'Nike',
+          description: "Chaussure adequate pour travailler au parc national de Rokua",
+          model: 'presto',
+          place: "Rokua",
+          price: "60",
+      },
     ],
 
     Sneakers: [
         {
             model: "climacool",
-            size: 5,
+            size: 40,
+            quantity: 4
         },
         {
             model: "climacool",
-            size: 6,
+            size: 41,
+            quantity: 2
         },
         {
             model: "climacool",
-            size: 7,
+            size: 42,
+            quantity: 2
+        },
+        {
+            model: "presto",
+            size: 42,
+            quantity: 5
         },
         {
             model: "vapormax",
-            size: 5,
+            size: 40,
+            quantity: 2
         },
         {
             model: "vapormax",
-            size: 6,
+            size: 41,
+            quantity: 2
         },
 
         {
             model: "vapormax",
-            size: 7,
+            size: 42,
+            quantity: 2
         },
 
         {
             model: "kaws",
-            size: 5,
+            size: 40,
+            quantity: 2
 
         },
         {
             model: "kaws",
-            size: 6,
+            size: 41,
+            quantity: 2
 
         },
 
         {
             model: "kaws",
-            size: 7,
+            size: 42,
+            quantity: 2
 
         },
     ]

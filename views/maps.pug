@@ -10,6 +10,8 @@ block content
   .page-header
     h3 Lieux Proposes
         h4 Lieux le plus proche de chez vous :
+            br
+            br
             #proche
 
   #map
@@ -57,7 +59,7 @@ block content
                 content: '<div>'
                 + '<h4>' + shoes.brand + ' - ' + shoes.model + '</h4>'
                 + '<img class="thumb_map" src="/img/' + shoes.model + '.jpg">'
-                + '<h5>Lieu : ' + shoes.place.name + '</h5>'
+                + '<h5>Lieu : ' + shoes.place + '</h5>'
                 + '<h5>Prix : ' + shoes.price + 'e</h5>'
                 + '<a href="/sneakers/'+ shoes.model +'" class="btn btn-primary btn-sm active" role="button">En savoir plus</a>'
                 + '</div>'
@@ -73,9 +75,11 @@ block content
             }
         }
 
-        if(geo != null){
-            html += '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
+        if(geo != null){          
+            html += '<div>'+ proche.model.place+'</div>';
             html += '<img class="thumb_map" src="/img/' + proche.model.model + '.jpg">'
+            html += '<div>'+ proche.model.brand + ' - ' + proche.model.model + '</div>';
+            html += '<br><a class="btn btn-primary btn-sm active" href="/sneakers/'+ proche.model.model +'" role="button" aria-pressed="true">Voir</a>'
         }else{
             html += "<div>Malheureusement nous n'avons pas pu vous localiser..</div>";
         }
