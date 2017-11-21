@@ -11,6 +11,7 @@ block content
     
     script.
         var basket =!{JSON.stringify(basket)};
+        var token =!{JSON.stringify(token)};
         function isEmpty(basket) {
             for(var prop in basket) {
                 if(basket.hasOwnProperty(prop))
@@ -25,7 +26,7 @@ block content
         }else{
             var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Rent duration</th><th>Price</th><th></th></thead><tbody>";
             var price = 0;
-            var form = '<form class="form-horizontal" action="/command" method="POST"><input type="hidden" name="_csrf" value="yfpqdw1CcK7ddW19jWrI7DYOwQ0sAgnDYLoLM=">';
+            var form = '<form class="form-horizontal" action="/command" method="POST"><input type="hidden" name="_csrf" value="'+token+'">';
             basket.forEach(function (basket) {
                 price += basket.totalPrice;
 
