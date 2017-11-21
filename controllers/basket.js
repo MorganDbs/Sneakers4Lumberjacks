@@ -20,7 +20,7 @@ exports.addBasket = (req, res) => {
         });
         
         Basket.find({ userId: req.user.id }, function(err, docs) {
-            res.render('basket', { basket: docs });
+            res.render('basket', { basket: docs, token: req.csrfToken()});
         });
     });
 };
