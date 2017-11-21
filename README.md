@@ -13,6 +13,7 @@ Starting
     sudo mongod
 
   in another Terminal in Sneakers4Lumberjacks' folder :
+  
     node app.js
 
 Then :
