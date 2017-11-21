@@ -23,7 +23,7 @@ block content
         if(isEmpty(basket)){
             document.getElementById('basket').innerHTML = '<p>Your basket is empty</p>';
         }else{
-            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Duration</th><th>Price</th><th></th></thead><tbody>";
+            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Rent duration</th><th>Price</th><th></th></thead><tbody>";
             var price = 0;
             var form = '<form class="form-horizontal" action="/command" method="POST"><input type="hidden" name="_csrf" value="yfpqdw1CcK7ddW19jWrI7DYOwQ0sAgnDYLoLM=">';
             basket.forEach(function (basket) {
@@ -35,7 +35,7 @@ block content
                 html += "<th>"+basket.size+"</th>";
                 html += "<th>"+basket.duree+" days</th>";
                 html += "<th>"+basket.totalPrice+"e</th>";
-                html += '<th><a href="/basket/delete/'+basket._id+'" role="button">Supprimer</a></th>';
+                html += '<th><a href="/basket/delete/'+basket._id+'" role="button">Remove</a></th>';
                 html += "</tr>";
 
                 

@@ -25,3 +25,10 @@ exports.validCommand = (req, res) => {
         );
     });
 };
+
+exports.displayCommand = (req, res) => {
+    Command.find({ userId: req.user.id }, function(err, docs) {
+        console.log(docs);
+        res.render('orders', { command: docs });
+    });
+};

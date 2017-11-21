@@ -14,7 +14,7 @@ block content
                                 h3 Description :
                                 h4= shoes.description
                                 h4= 'Place : ' + shoes.place
-                                h4= 'Price : ' + shoes.price + 'e'
+                                h4= 'Price/day : ' + shoes.price + 'e'
                                 input(type='hidden', name='price', value=shoes.price)
                                 #size
 
@@ -52,7 +52,7 @@ block content
                 html+= "</select></div></br>";
                 document.getElementById('size').innerHTML = html;
 
-                var html2 = "<div> Duration : ";
+                var html2 = "<div> Rent duration : ";
                 html2+= "<select name='duree'>";
                 html2+="<option value='1'>1 days</option>";
                 html2+="<option value='2'>2 days</option>";

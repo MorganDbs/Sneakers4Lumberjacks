@@ -19,14 +19,14 @@ exports.addBasket = (req, res) => {
             });
         });
         
-        Basket.find((err, docs) => {
-            res.render('basket', { basket: docs});
+        Basket.find({ userId: req.user.id }, function(err, docs) {
+            res.render('basket', { basket: docs });
         });
     });
 };
 
 exports.getBasket = (req, res) => {
-    Basket.find((err, docs) => {
+    Basket.find({ userId: req.user.id }, function(err, docs) {
         res.render('basket', { basket: docs });
     });
 };
