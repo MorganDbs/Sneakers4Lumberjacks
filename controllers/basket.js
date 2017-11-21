@@ -18,7 +18,6 @@ exports.addBasket = (req, res) => {
 
 exports.getBasket = (req, res) => {
     Basket.find((err, docs) => {
-        console.log(docs);
         res.render('basket', { basket: docs });
     });
 };
