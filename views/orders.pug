@@ -2,25 +2,26 @@ extends layout
 
 block content
   .page-header
-    h3 Last order
+    h3 Last orders
     #order
 
     
     script.
         var command =!{JSON.stringify(command)};
-
-        command.forEach(function (command){
-            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Rent duration</th></thead><tbody>";
-            for (var i = 0; i < command.brand.length; i++) {
+        var max = command.length;
+        var html ="";
+        for (var y = 0; y < max; y++) {
+            html += "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Rent duration</th></thead><tbody>";
+            for (var i = 0; i < command[y].brand.length; i++) {
                 html += "<tr>";
-                html += "<th>"+command.brand[i]+"</th>";
-                html += "<th>"+command.model[i]+"</th>";
-                html += "<th>"+command.size[i]+"</th>";
-                html += "<th>"+command.duree[i]+" days</th>";
+                html += "<th>"+command[y].brand[i]+"</th>";
+                html += "<th>"+command[y].model[i]+"</th>";
+                html += "<th>"+command[y].size[i]+"</th>";
+                html += "<th>"+command[y].duree[i]+" days</th>";
                 html += "</tr>";
             }
             html += "</tbody></table>";
-            html += "<h3>Total : "+command.totalPrice+"</h3>";
+            html += "<h4>Total : "+command[y].totalPrice+"</h4>";
             document.getElementById('order').innerHTML = html;
-        });
+        };
        
