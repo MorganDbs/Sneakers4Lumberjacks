@@ -19,14 +19,14 @@ fixtures({
         longitude: 6.865432
       },
       {
-      name: "Aspen",
-      latitude: 39.201270,
-      longitude: -106.788660
+        name: "Aspen",
+        latitude: 39.201270,
+        longitude: -106.788660
       },
       {
-          name: "Rokua",
-          latitude: 64.563729,
-          longitude: 26.510911
+        name: "Rokua",
+        latitude: 64.563729,
+        longitude: 26.510911
       }
   ],
     Brand : [
@@ -87,7 +87,7 @@ fixtures({
         {
             model: "presto",
             size: 42,
-            quantity: 5
+            quantity: 1
         },
         {
             model: "vapormax",

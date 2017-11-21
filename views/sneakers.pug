@@ -9,7 +9,7 @@ block content
             .col-sm-4
                     img(class="thumb" src='/img/'+ shoes.model + '.jpg')
                     h3= shoes.brand + ' ' + shoes.model
-                    h4= shoes.place
-                    h4= shoes.price + 'e'
-                    a(href='/sneakers/'+shoes.model class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Voir
+                    h4= "Place : " + shoes.place
+                    h4= "Price/day : " + shoes.price + 'e'
+                    a(href='/sneakers/'+shoes.model class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") More
                     br

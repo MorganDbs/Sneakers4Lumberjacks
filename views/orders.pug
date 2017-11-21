@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .page-header
+    h3 Last order
+    #order
+
+    
+    script.
+        var command =!{JSON.stringify(command)};
+
+        command.forEach(function (command){
+            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Rent duration</th></thead><tbody>";
+            for (var i = 0; i < command.brand.length; i++) {
+                html += "<tr>";
+                html += "<th>"+command.brand[i]+"</th>";
+                html += "<th>"+command.model[i]+"</th>";
+                html += "<th>"+command.size[i]+"</th>";
+                html += "<th>"+command.duree[i]+" days</th>";
+                html += "</tr>";
+            }
+            html += "</tbody></table>";
+            html += "<h3>Total : "+command.totalPrice+"</h3>";
+            document.getElementById('order').innerHTML = html;
+        });
+       

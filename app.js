@@ -39,6 +39,7 @@ const contactController = require('./controllers/contact');
 const sneakersController = require('./controllers/sneakers');
 const mapsController = require('./controllers/maps');
 const basketController = require('./controllers/basket');
+const commandController = require('./controllers/command');
 
 /**
  * API keys and Passport configuration.
@@ -130,6 +131,7 @@ app.get('/maps', mapsController.getClientGeolocation);
 app.get('/basket', basketController.getBasket);
 app.post('/basket', basketController.addBasket);
 app.get('/basket/delete/:id', basketController.deleteItemBasket);
+app.post('/command', commandController.validCommand);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -141,7 +143,8 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
-app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
+app.get('/account', passportConfig.isAuthenticated, userController.getAccount, commandController.displayCommand);
+app.get('/orders', commandController.displayCommand);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);

@@ -16,9 +16,10 @@
         li(class=(title === 'Sneakers') ? 'active' : undefined)
           a(href='/sneakers') Sneakers
         li(class=(title === 'Maps') ? 'active' : undefined)
-          a(href='/maps') Géolocalise moi
-        li(class=(title === 'Basket') ? 'active' : undefined)
-          a(href='/Basket') Basket
+          a(href='/maps') Locate me
+        if user
+            li(class=(title === 'Basket') ? 'active' : undefined)
+                a(href='/basket') Basket
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title === 'Login') ? 'active' : undefined)
@@ -32,10 +33,10 @@
               i.caret
             ul.dropdown-menu
               li
-                a(href='/basket') Basket
+                a(href='/account') My Account
               li.divider
               li
-                a(href='/account') My Account
+                a(href='/orders') Last order
               li.divider
               li
                 a(href='/logout') Logout

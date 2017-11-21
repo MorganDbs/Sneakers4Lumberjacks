@@ -7,37 +7,67 @@ block content
                         form.form-horizontal(action="/basket", method='POST')
                             input(type='hidden', name='_csrf', value=_csrf)
                             .form-group
-                                label= shoes.brand + ' ' + shoes.model
+                                h2= shoes.brand + ' - ' + shoes.model
                                 input(type='hidden', name='model', value=shoes.model)
                                 input(type='hidden', name='brand', value=shoes.brand)
                                 img(class="thumb" src='/img/'+ shoes.model + '.jpg')
                                 h3 Description :
                                 h4= shoes.description
-                                h4= 'Lieux : ' + shoes.place
-                                h4= 'Prix : ' + shoes.price + 'e'
+                                h4= 'Place : ' + shoes.place
+                                h4= 'Price/day : ' + shoes.price + 'e'
                                 input(type='hidden', name='price', value=shoes.price)
-                                div Pointure : 
-                                    select(name='size')
-                                        for qty in size
-                                            if qty
-                                                option(value=qty.size)= qty.size
-                                br
-                                div Temps de locations : 
-                                    select(name='duree')
-                                        option(value=1) 1 jours
-                                        option(value=2) 2 jours
-                                        option(value=3) 3 jours
-                                        option(value=4) 4 jours
-                                        option(value=5) 5 jours
-                                        option(value=6) 6 jours
-                                        option(value=7) 7 jours
-                                br
-                                if auth
-                                  button.btn.btn-success(type='submit') Commander
-                                else
-                                    button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
-                                    p
-                                        |Merci de vous
-                                        a( href='/login') connecter
-                                        | ou
-                                        a( href='/signup')  creer un compte
+                                #size
+
+                                #location
+
+                                #command
+
+                                #connect
+
+
+    script.
+        var size =!{JSON.stringify(size)};
+        var auth =!{JSON.stringify(auth)};
+
+        console.log(auth);
+
+        function isEmpty(size) {
+            for(var prop in size) {
+                if(size.hasOwnProperty(prop))
+                    return false;
+            }
+
+            return true;
+        }
+
+        if(isEmpty(size)){
+            document.getElementById('size').innerHTML = '<h4>This sneakers is sold out !</h4>';
+            document.getElementById('command').innerHTML = '<button class="btn btn-primary btn-lg btn-block" type="submit" disabled>Add to basket</button>';
+        }else{
+            if(auth){
+                var html = "<div class='pointure'>Size <select name='size'>";
+                size.forEach(function (size) {
+                    html += "<option value='"+size.size+"'>"+size.size+"</option>";
+                });
+                html+= "</select></div></br>";
+                document.getElementById('size').innerHTML = html;
+
+                var html2 = "<div> Rent duration : ";
+                html2+= "<select name='duree'>";
+                html2+="<option value='1'>1 days</option>";
+                html2+="<option value='2'>2 days</option>";
+                html2+="<option value='3'>3 days</option>";
+                html2+="<option value='4'>4 days</option>";
+                html2+="<option value='5'>5 days</option>";
+                html2+="<option value='6'>6 days</option>";
+                html2+="<option value='7'>7 days</option>";
+                html2+="</select></div></br>";
+
+                document.getElementById('location').innerHTML = html2;
+                document.getElementById('command').innerHTML = '<button class="btn btn-primary btn-lg btn-block" type="submit">Add to basket</button>';
+            }
+            else{
+                document.getElementById('command').innerHTML = '<button class="btn btn-primary btn-lg btn-block" type="submit" disabled>Add to basket</button></br>';
+                document.getElementById('connect').innerHTML = '<p>Thanks to <a href="/login">login</a> or<a href="/signup"> sign up</a></p>';
+            }
+        }
