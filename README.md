@@ -18,7 +18,7 @@ Starting
 
 Then :
 
-Go on http://localhost:8080
+Go to http://localhost:8080
 
 Features
 -------------
