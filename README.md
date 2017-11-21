@@ -1,15 +1,16 @@
+Prerequisites
+-------------
+
+- [MongoDB](https://www.mongodb.org/downloads)
+- [Node.js 6.0+](http://nodejs.org)
+- Command Line Tools
+ 
 Starting :
-
-  with docker :
-    chmod -x Docker_Launch.sh
-    ./Docker_Launch.sh
-
-  if docker doesn't work: 
     chmod -x script.sh
     ./script.sh
     sudo mongod
 
-  in a second Terminal on sneakers4lumberjacks place :
+  in a another Terminal in Sneakers4Lumberjacks''folder :
     node app.js
 
 Then :
