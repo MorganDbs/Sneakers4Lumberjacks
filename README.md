@@ -12,7 +12,7 @@ Starting
     ./script.sh
     sudo mongod
 
-  in a another Terminal in Sneakers4Lumberjacks''folder :
+  in another Terminal in Sneakers4Lumberjacks''folder :
     node app.js
 
 Then :
