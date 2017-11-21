@@ -1,14 +1,16 @@
 Starting :
 
-./Docker_Launch.sh
+  with docker :
+    chmod -x Docker_Launch.sh
+    ./Docker_Launch.sh
 
-npm install node-mongoose-fixtures
+  if docker doesn't work: 
+    chmod -x script.sh
+    ./script.sh
+    sudo mongod
 
-npm install googlemaps
-
-npm install --save public-ip
-
-npm install geoip-lite
+  in a second Terminal on sneakers4lumberjacks place :
+    node app.js
 
 Then :
 
