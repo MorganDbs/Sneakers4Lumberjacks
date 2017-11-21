@@ -7,6 +7,8 @@ block content
     div
         #basket
 
+    #form
+    
     script.
         var basket =!{JSON.stringify(basket)};
         function isEmpty(basket) {
@@ -23,6 +25,7 @@ block content
         }else{
             var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Duration</th><th>Price</th><th></th></thead><tbody>";
             var price = 0;
+            var form = '<form class="form-horizontal" action="/command" method="POST"><input type="hidden" name="_csrf" value="yfpqdw1CcK7ddW19jWrI7DYOwQ0sAgnDYLoLM=">';
             basket.forEach(function (basket) {
                 price += basket.totalPrice;
 
@@ -34,8 +37,21 @@ block content
                 html += "<th>"+basket.totalPrice+"e</th>";
                 html += '<th><a href="/basket/delete/'+basket._id+'" role="button">Supprimer</a></th>';
                 html += "</tr>";
+
+                
+                form+='<input type="hidden" name="brand" value="'+basket.brand+'">';
+                form+='<input type="hidden" name="model" value="'+basket.model+'">';
+                form+='<input type="hidden" name="size" value="'+basket.size+'">';
+                form+='<input type="hidden" name="duration" value="'+basket.duree+'">';
+                
             });
             html += "</tbody></table>";
-            html += "<div>Total : "+price+"e</div>";
+            html += "<h3>Total : "+price+"e</h3>";
+
+            form+='<input type="hidden" name="price" value="'+price+'">';
+            
+            form+='<div class="form-group"><div class="form-group"><label class="col-sm-3 control-label" for="firstname">First Name</label><div class="col-sm-7"><input class="form-control" type="text" name="firstname" id="firstname" required></div></div><div class="form-group"><label class="col-sm-3 control-label" for="name" >Sur Name</label><div class="col-sm-7"><input class="form-control" type="text" name="surname" id="surname" required></div></div><div class="form-group"><label class="col-sm-3 control-label" for="location">Address</label><div class="col-sm-7"><input class="form-control" type="text" name="address" id="address" required></div></div><div class="form-group"><div class="col-sm-offset-3 col-sm-4"><button class="btn btn btn-primary" type="submit">Buy</button></div></div></form>';
+            
             document.getElementById('basket').innerHTML = html;
+            document.getElementById('form').innerHTML = form;
         }
