@@ -21,3 +21,9 @@ exports.getBasket = (req, res) => {
         res.render('basket', { basket: docs });
     });
 };
+
+exports.deleteItemBasket = (req, res) => {
+    Basket.remove({ _id: req.params.id }, function (err) {
+        res.redirect("/basket");
+    });
+};
