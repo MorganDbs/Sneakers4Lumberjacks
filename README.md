@@ -27,7 +27,7 @@ Features
 - let our system locate the closest sneakers
 - pick a sneakers on a map
 - rent your sneakers
-- create account..
+- create account, login etc..
 
 Concept
 -------------
