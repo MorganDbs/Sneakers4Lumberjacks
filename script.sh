@@ -44,4 +44,7 @@ npm install passport-linkedin-oauth2
 npm install passport-openid
 npm install passport-oauth
 npm install pug
+npm install googlemaps
+npm install --save public-ip
+npm install geoip-lite
 npm install node-mongoose-fixtures
