@@ -87,7 +87,7 @@ fixtures({
         {
             model: "presto",
             size: 42,
-            quantity: 5
+            quantity: 1
         },
         {
             model: "vapormax",

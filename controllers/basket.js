@@ -1,4 +1,5 @@
 const Basket = require('../models/Basket.js');
+const Sneakers = require('../models/Sneakers.js');
 
 exports.addBasket = (req, res) => {
     new Basket({
@@ -10,6 +11,14 @@ exports.addBasket = (req, res) => {
         brand: req.body.brand,
         size: req.body.size
     }).save(function (err, doc) {
+        Sneakers.find({ model: req.body.model, size: req.body.size }, function (err, docs2) {
+            var qt = docs2[0].quantity;
+            qt--;
+            console.log(qt);
+            Sneakers.findOneAndUpdate({ _id: docs2[0]._id }, { $set: { quantity: qt } }, function (err, user) {
+            });
+        });
+        
         Basket.find((err, docs) => {
             res.render('basket', { basket: docs});
         });
