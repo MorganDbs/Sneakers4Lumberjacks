@@ -8,7 +8,7 @@ const modelSchema = new mongoose.Schema({
   place: String,
   model: {type:String,require:true},
   price: {type: Number, min: 0, default:0},
-  desription:String,
+  description:String,
 }, { timestamps: true });
 
 

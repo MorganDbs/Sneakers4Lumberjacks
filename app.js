@@ -38,6 +38,7 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const sneakersController = require('./controllers/sneakers');
 const mapsController = require('./controllers/maps');
+const basketController = require('./controllers/basket');
 
 /**
  * API keys and Passport configuration.
@@ -81,11 +82,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
-  store: new MongoStore({
-    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
-    autoReconnect: true,
-    clear_interval: 3600
-  })
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: {maxAge: 180*60*1000}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -100,8 +98,9 @@ app.use((req, res, next) => {
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
+    res.locals.user = req.user;
+    res.locals.session = req.session;
+    next();
 });
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
@@ -127,8 +126,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/sneakers', sneakersController.getAllSneakerss);
 app.get('/sneakers/:name', sneakersController.getSneakers);
-app.get('/add-to-basket/:id',sneakersController.addBasket);
-app.get('/maps', mapsController.getClientGeolocation );
+app.get('/maps', mapsController.getClientGeolocation);
+app.get('/basket', basketController.getBasket);
+app.post('/basket', basketController.addBasket);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);

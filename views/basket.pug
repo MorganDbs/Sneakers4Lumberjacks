@@ -3,15 +3,37 @@ extends layout
 block content
   .page-header
     h3 Basket
+        div
+            #basket
 
-  if sneakers
-    for shoes in sneakersBask
-      .col-sm-4
-          img(class="thumb" src='/img/'+ shoes.model + '.jpg')
-          h3= shoes.brand + ' ' + shoes.model
-          h4= shoes.place.name
-          h4= shoes.price + 'e'
-      .col-sm-12
-        h3= basket.totalprice
-  else
-    h4 No Items in Basket
+    script.
+        var basket =!{JSON.stringify(basket)};
+        function isEmpty(basket) {
+            for(var prop in basket) {
+                if(basket.hasOwnProperty(prop))
+                    return false;
+            }
+
+            return true;
+        }
+
+        if(isEmpty(basket)){
+            document.getElementById('basket').innerHTML = '<p>ptdr t as pas d item</p>';
+        }else{
+            var html = "<table class='table table-striped'><thead><tr><th>Brand</th><th>Model</th><th>Size</th><th>Duration</th><th>Price</th></thead><tbody>";
+            var price = 0;
+            basket.forEach(function (basket) {
+                price += basket.totalPrice;
+
+                html += "<tr>";
+                html += "<th>"+basket.brand+"</th>";
+                html += "<th>"+basket.model+"</th>";
+                html += "<th>"+basket.size+"</th>";
+                html += "<th>"+basket.duree+" days</th>";
+                html += "<th>"+basket.totalPrice+"e</th>";
+                html += "</tr>";
+            });
+            html += "</tbody></table>";
+            html += "<div>Total : "+price+"e</div>";
+            document.getElementById('basket').innerHTML = html;
+        }

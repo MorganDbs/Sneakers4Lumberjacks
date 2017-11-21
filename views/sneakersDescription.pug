@@ -1,32 +1,39 @@
 extends layout
-
 block content
     for shoes in sneakersdes
         .page-header
             .row
                 .col-sm-4
-                        form.form-horizontal(id='add-basket', method='POST')
+                        form.form-horizontal(action="/basket", method='POST')
                             input(type='hidden', name='_csrf', value=_csrf)
                             .form-group
                                 label= shoes.brand + ' ' + shoes.model
-                                input(type='hidden', name='shoes', value=shoes)
+                                input(type='hidden', name='model', value=shoes.model)
+                                input(type='hidden', name='brand', value=shoes.brand)
                                 img(class="thumb" src='/img/'+ shoes.model + '.jpg')
                                 h3 Description :
-                                label
-                                    h4= shoes.description
-                                h4= 'Lieux : ' + shoes.place.name
+                                h4= shoes.description
+                                h4= 'Lieux : ' + shoes.place
                                 h4= 'Prix : ' + shoes.price + 'e'
-                                form.form-horizontal(action='/'+shoes.model+'/command', method='POST')
-                                  select.custom-select.select-size
-                                    option
-                                      selected Tailles
-                                        option= shoes.available.size1.size
-                                        option= shoes.available.size2.size
-                                        option= shoes.available.size3.size
+                                input(type='hidden', name='price', value=shoes.price)
+                                div Pointure : 
+                                    select(name='size')
+                                        for qty in size
+                                            if qty
+                                                option(value=qty.size)= qty.size
                                 br
+                                div Temps de locations : 
+                                    select(name='duree')
+                                        option(value=1) 1 jours
+                                        option(value=2) 2 jours
+                                        option(value=3) 3 jours
+                                        option(value=4) 4 jours
+                                        option(value=5) 5 jours
+                                        option(value=6) 6 jours
+                                        option(value=7) 7 jours
                                 br
                                 if auth
-                                  a(href='/add-to-basket/'+shoes._id class="btn btn-primary btn-lg btn-block active" role="button" aria-pressed="true") Commander
+                                  button.btn.btn-success(type='submit') Commander
                                 else
                                     button.btn.btn-primary.btn-lg.btn-block(type='submit')(disabled) Commander
                                     p
